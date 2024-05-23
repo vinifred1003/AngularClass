@@ -1,0 +1,24 @@
+.footer {
+  background-color: rgb(83, 83, 83);
+  background-color: "";
+
+  position: fixed;
+  bottom: 0;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer>span {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.descricao {
+  color: white;
+
+}
+
+.descricao i {
+  margin-left: 5px;
+}

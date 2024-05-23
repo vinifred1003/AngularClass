@@ -5,140 +5,140 @@ import { ButtonModule } from 'primeng/button';
 import { Galleria } from 'primeng/galleria';
 
 
-declare global {
-  interface Document {
-    mozCancelFullScreen?: () => Promise<void>;
-    msExitFullscreen?: () => Promise<void>;
-    webkitExitFullscreen?: () => Promise<void>;
-    mozFullScreenElement?: Element;
-    msFullscreenElement?: Element;
-    webkitFullscreenElement?: Element;
-  }
+// declare global {
+//   interface Document {
+//     mozCancelFullScreen?: () => Promise<void>;
+//     msExitFullscreen?: () => Promise<void>;
+//     webkitExitFullscreen?: () => Promise<void>;
+//     mozFullScreenElement?: Element;
+//     msFullscreenElement?: Element;
+//     webkitFullscreenElement?: Element;
+//   }
 
-  interface HTMLElement {
-    msRequestFullscreen?: () => Promise<void>;
-    mozRequestFullscreen?: () => Promise<void>;
-    webkitRequestFullscreen?: () => Promise<void>;
-  }
-}
+//   interface HTMLElement {
+//     msRequestFullscreen?: () => Promise<void>;
+//     mozRequestFullscreen?: () => Promise<void>;
+//     webkitRequestFullscreen?: () => Promise<void>;
+//   }
+// }
 
 @Component({
   selector: 'app-photo-gallery',
   standalone: true,
-  imports: [ButtonModule, GalleriaModule],
+  // imports: [ButtonModule, GalleriaModule],
   templateUrl: './photo-gallery.component.html',
   styleUrl: './photo-gallery.component.scss',
   providers: [PhotoService]
 })
 
-export class PhotoGalleryComponent implements OnInit, OnDestroy {
-  images: any[] | undefined;
+export class PhotoGalleryComponent {
+  // images: any[] | undefined;
 
-  showThumbnails: boolean | undefined;
+  // showThumbnails: boolean | undefined;
 
-  fullscreen: boolean = false;
+  // fullscreen: boolean = false;
 
-  activeIndex: number = 0;
+  // activeIndex: number = 0;
 
-  onFullScreenListener: any;
+  // onFullScreenListener: any;
 
-  @ViewChild('galleria') galleria: Galleria | undefined;
+  // @ViewChild('galleria') galleria: Galleria | undefined;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) { }
+  // constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) { }
 
-  responsiveOptions: any[] = [
-    {
-      breakpoint: '1024px',
-      numVisible: 5
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 3
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1
-    }
-  ];
+  // responsiveOptions: any[] = [
+  //   {
+  //     breakpoint: '1024px',
+  //     numVisible: 5
+  //   },
+  //   {
+  //     breakpoint: '768px',
+  //     numVisible: 3
+  //   },
+  //   {
+  //     breakpoint: '560px',
+  //     numVisible: 1
+  //   }
+  // ];
 
-  ngOnInit() {
-    this.photoService.getImages().then((images) => (this.images = images));
-    this.bindDocumentListeners();
-  }
+  // ngOnInit() {
+  //   this.photoService.getImages().then((images) => (this.images = images));
+  //   this.bindDocumentListeners();
+  // }
 
-  onThumbnailButtonClick() {
-    this.showThumbnails = !this.showThumbnails;
-  }
+  // onThumbnailButtonClick() {
+  //   this.showThumbnails = !this.showThumbnails;
+  // }
 
-  toggleFullScreen() {
-    if (this.fullscreen) {
-      this.closePreviewFullScreen();
-    } else {
-      this.openPreviewFullScreen();
-    }
+  // toggleFullScreen() {
+  //   if (this.fullscreen) {
+  //     this.closePreviewFullScreen();
+  //   } else {
+  //     this.openPreviewFullScreen();
+  //   }
 
-    this.cd.detach();
-  }
+  //   this.cd.detach();
+  // }
 
-  openPreviewFullScreen() {
-    let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem['mozRequestFullScreen']) {
-      /* Firefox */
-      elem['mozRequestFullScreen']();
-    } else if (elem['webkitRequestFullscreen']) {
-      /* Chrome, Safari & Opera */
-      elem['webkitRequestFullscreen']();
-    } else if (elem['msRequestFullscreen']) {
-      /* IE/Edge */
-      elem['msRequestFullscreen']();
-    }
-  }
+  // openPreviewFullScreen() {
+  //   let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
+  //   if (elem.requestFullscreen) {
+  //     elem.requestFullscreen();
+  //   } else if (elem['mozRequestFullScreen']) {
+  //     /* Firefox */
+  //     elem['mozRequestFullScreen']();
+  //   } else if (elem['webkitRequestFullscreen']) {
+  //     /* Chrome, Safari & Opera */
+  //     elem['webkitRequestFullscreen']();
+  //   } else if (elem['msRequestFullscreen']) {
+  //     /* IE/Edge */
+  //     elem['msRequestFullscreen']();
+  //   }
+  // }
 
-  onFullScreenChange() {
-    this.fullscreen = !this.fullscreen;
-    this.cd.detectChanges();
-    this.cd.reattach();
-  }
+  // onFullScreenChange() {
+  //   this.fullscreen = !this.fullscreen;
+  //   this.cd.detectChanges();
+  //   this.cd.reattach();
+  // }
 
-  closePreviewFullScreen() {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document['mozCancelFullScreen']) {
-      document['mozCancelFullScreen']();
-    } else if (document['webkitExitFullscreen']) {
-      document['webkitExitFullscreen']();
-    } else if (document['msExitFullscreen']) {
-      document['msExitFullscreen']();
-    }
-  }
+  // closePreviewFullScreen() {
+  //   if (document.exitFullscreen) {
+  //     document.exitFullscreen();
+  //   } else if (document['mozCancelFullScreen']) {
+  //     document['mozCancelFullScreen']();
+  //   } else if (document['webkitExitFullscreen']) {
+  //     document['webkitExitFullscreen']();
+  //   } else if (document['msExitFullscreen']) {
+  //     document['msExitFullscreen']();
+  //   }
+  // }
 
-  bindDocumentListeners() {
-    this.onFullScreenListener = this.onFullScreenChange.bind(this);
-    document.addEventListener('fullscreenchange', this.onFullScreenListener);
-    document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
-    document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
-    document.addEventListener('msfullscreenchange', this.onFullScreenListener);
-  }
+  // bindDocumentListeners() {
+  //   this.onFullScreenListener = this.onFullScreenChange.bind(this);
+  //   document.addEventListener('fullscreenchange', this.onFullScreenListener);
+  //   document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+  //   document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+  //   document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+  // }
 
-  unbindDocumentListeners() {
-    document.removeEventListener('fullscreenchange', this.onFullScreenListener);
-    document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
-    document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
-    document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
-    this.onFullScreenListener = null;
-  }
+  // unbindDocumentListeners() {
+  //   document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+  //   document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+  //   document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+  //   document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+  //   this.onFullScreenListener = null;
+  // }
 
-  ngOnDestroy() {
-    this.unbindDocumentListeners();
-  }
+  // ngOnDestroy() {
+  //   this.unbindDocumentListeners();
+  // }
 
-  galleriaClass() {
-    return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
-  }
+  // galleriaClass() {
+  //   return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
+  // }
 
-  fullScreenIcon() {
-    return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
-  }
+  // fullScreenIcon() {
+  //   return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
+  // }
 }
